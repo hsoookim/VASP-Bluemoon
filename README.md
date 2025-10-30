@@ -72,6 +72,7 @@ It reads processed data (e.g., `delG.dat`), applies fitting methods, integrates 
 #### Usage
 ```bash
 python integrate_poly.py delG.dat
+```
 The script will interactively prompt for:
 Invert x-axis (yes/no)
 Fit type (poly, spline, or raw)

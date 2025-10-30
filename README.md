@@ -41,7 +41,7 @@ This script processes `report_*` files computes the mean force ⟨∂G/∂ξ⟩,
 - Averages the fifth column (scaled force term) over the production portion of the trajectory.  
 - Normalizes by the factor `zet` from column 3.
 - Computes the standard error of the mean (SEM).
-- Store the output in a file named as ‘delG.dat’. with four columns "image   r   g   sem"
+- Store the output in a file named as ‘delG.dat’. with four columns "image   r   delG   sem"
 
 ### Integral
 - Run the “integrate_fit.py” on ‘delG.dat’ to do the path integral.
@@ -49,7 +49,7 @@ This script processes `report_*` files computes the mean force ⟨∂G/∂ξ⟩,
 This script performs **numerical integration of free-energy gradients** (⟨∂G/∂ξ⟩) to obtain the free-energy profile \( G(ξ) \).  
 It reads in processed data, such as `delG.dat`, fits the force data, integrates it, and produces both **numerical results** and **plots**.
 
-- **Input parsing**: Reads "image   r(reaction coordinate)   g(mean force)   sem(error)" from data file.
+- **Input parsing**: Reads "image   r(reaction coordinate)   delG(mean force)   sem(error)" from data file.
 - **Flexible fitting options**:
   - **Polynomial fit** (user-defined degree).
   - **Cubic spline fit** (smooth interpolation).
@@ -58,10 +58,10 @@ It reads in processed data, such as `delG.dat`, fits the force data, integrates 
   - `quad` (adaptive quadrature from SciPy).
   - `trapezoid` (trapezoidal rule).
 - **r vs g plot**:
-  - Plots mean force('r' vs.'g') with SEM error bars.
+  - Plots mean force('r' vs.'delG') with SEM error bars.
 
 - **r vs Free-energy profile**:
-  - Integrates 'g' to yield \( G(ξ) \).
+  - Integrates 'delG' to yield \( G(ξ) \).
   - Automatically shifts the profile so the minimum energy is set to **zero reference**.
   - Annotates the maximum barrier height on the plot.
 Uses a custom ACS-style plotting function (`acs_plot_style.py`) for journal-ready graphics.

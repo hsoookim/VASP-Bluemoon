@@ -33,10 +33,16 @@ When running cAIMD in multiple stages (e.g., restarting jobs or splitting into s
 
 ## Post-processing
 ### G_dat.sh
+- This script processes `report_*` files computes the mean force ⟨∂G/∂ξ⟩, with error bars.
 - Run the “g_dat.sh” shell in directory where all folders are located to extract averaged values of reaction coordinate values and free-energy gradients.
 - In this script, you have to give how many steps will be ignored as equilibration step.
-- This script is currently written out for one constraint.
-- Store the output in a file named as ‘G_dat.dat’.
+- Concatenates all `report_*` files in each directory into a single file `rep.$i.1`.
+- Reads the constrained coordinate (`x1`) from the `report_1` file (based on the `ICONST` definition).
+- Averages the fifth column (scaled force term) over the production portion of the trajectory.  
+- Normalizes by the factor `zet` from column 3.
+- Computes the standard error of the mean (SEM).
+- Store the output in a file named as ‘delG.dat’.
 
 ### Integral
-- Run the “integrate.py” on ‘g.dat’ to do the path integral.
+- Run the “integrate.py” on ‘delG.dat’ to do the path integral.
+- 

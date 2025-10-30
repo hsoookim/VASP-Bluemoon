@@ -31,3 +31,12 @@ When running cAIMD in multiple stages (e.g., restarting jobs or splitting into s
 - Rename each copy systematically (e.g. `report_x`).  
 - Later, the extraction script (`G_dat.sh`) can be pointed to these files (`report_*`) and will process them together.  
 
+## Post-processing
+### G_dat.sh
+- Run the “g_dat.sh” shell in directory where all folders are located to extract averaged values of reaction coordinate values and free-energy gradients.
+- In this script, you have to give how many steps will be ignored as equilibration step.
+- This script is currently written out for one constraint.
+- Store the output in a file named as ‘G_dat.dat’.
+
+### Integral
+- Run the “integrate.py” on ‘g.dat’ to do the path integral.

@@ -3,6 +3,7 @@ Thermodynamic Integration – Blue Moon Method (VASP)
 
 This repository contains scripts and input examples for performing thermodynamic integration (TI) with the Blue Moon ensemble method using VASP. 
 The workflow targets to run contrained AIMD to obtain free-energy profiles G(ξ) along a reaction coordinate ξ.  
+  
 Relevant VASPwiki documentations
 - Bluemoon ensemble : https://vasp.at/wiki/Blue_moon_ensemble
 - LBLUEOUT = .TRUE. : https://vasp.at/wiki/Blue_moon_ensemble_calculations
@@ -78,9 +79,9 @@ It reads processed data (e.g., `delG.dat`), applies fitting methods, integrates 
 python integrate_poly.py delG.dat
 ```
 The script will interactively prompt for:
-Invert x-axis (yes/no)
-Fit type (poly, spline, or raw)
-Polynomial degree (if poly)
-Integration method (quad or trapezoid)
-Dense sampling option (yes/no)
+Invert x-axis (yes/no)  
+Fit type (poly, spline, or raw)  
+Polynomial degree (if poly)  
+Integration method (quad or trapezoid)  
+Dense sampling option (yes/no)  
 

@@ -56,17 +56,17 @@ It reads processed data (e.g., `delG.dat`), applies fitting methods, integrates 
 
 **Features**
 - **Flexible fitting**:
-- Polynomial fit (degree chosen interactively).
-- Cubic spline fit (smooth interpolation).
-- Raw integration (direct trapezoid rule without fitting).
+  - Polynomial fit (degree chosen interactively).
+  - Cubic spline fit (smooth interpolation).
+  - Raw integration (direct trapezoid rule without fitting).
 - **Integration methods**:
-- `quad` (adaptive quadrature via SciPy).
-- `trapezoid` (trapezoidal rule).
+  - `quad` (adaptive quadrature via SciPy).
+  - `trapezoid` (trapezoidal rule).
 - **Plotting**:
-- **r vs. delG**: mean force with SEM error bars and fitted curve.
-- **r vs. G(ξ)**: integrated free-energy profile.
-  - Profile is shifted so that the minimum is at **0 eV**.
-  - Maximum barrier height is automatically annotated.
+  - **r vs. delG**: mean force with SEM error bars and fitted curve.
+  - **r vs. G(ξ)**: integrated free-energy profile.
+    - Profile is shifted so that the minimum is at **0 eV**.
+    - Maximum barrier height is automatically annotated.
 - **Style**: uses `acs_plot_style.py` for publication-quality (ACS-style) plots.
 
 #### Usage

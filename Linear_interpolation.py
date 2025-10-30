@@ -2,6 +2,28 @@ import os
 import shutil
 import numpy as np
 import copy
+'''
+Usage summary:
+1. Inputs (interactive prompts):
+- Initial POSCAR filename ex) POSCAR_00.vasp
+- Final POSCAR filename ex) POSCAR_09.vasp
+- atom index ex) O35, H1, H2
+- number of intermediate images
+2. Linearly interpolates user-specified atoms over a given number of intermediate images
+3. Writes each interpolated POSCAR into numbered folders staring 00, 01, ..., final 
+
+Important assumptions and notes:
+- Interpolation is performed in fractional coordinates; coordinates >1 are wrapped by subtracting 1.
+- The script chooses the “base” atoms (non-interpolated atoms) from initial structure to the midpoint intermediate images, and later images from the final structure.
+
+Example run:
+python Linear_interpolation.py
+(when prompted) initial.vasp
+final.vasp
+O35,H21,H22
+9
+This produces 11 directories (00..10) with POSCAR files for a 9-image interpolation between initial and final
+'''
 
 def read_POSCAR(file_path):
     with open(file_path, 'r') as f:

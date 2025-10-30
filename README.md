@@ -37,7 +37,7 @@ When running cAIMD in multiple stages (e.g., restarting jobs or splitting into s
 - Later, the extraction script (`G_dat.sh`) can be pointed to these files (`report_*`) and will process them together.  
 
 ## Post-processing
-### 1. Extract Mean Forces (`G_dat.sh`)
+### Step 1. Extract Mean Forces (`G_dat.sh`)
 This shell script processes VASP `report_*` files in each constraint window and outputs averaged free-energy gradients.
 
 **What it does**
@@ -54,7 +54,7 @@ This shell script processes VASP `report_*` files in each constraint window and 
   - `delG`: mean force ⟨∂G/∂ξ⟩ (eV/Å)  
   - `sem`: standard error of the mean (eV/Å)  
 
-### 2. Integrate Free-Energy Profile (`integrate_poly.py`)
+### Step 2. Integrate Free-Energy Profile (`integrate_poly.py`)
 
 This Python script performs **numerical integration of mean force data** (⟨∂G/∂ξ⟩) to construct the free-energy profile \( G(ξ) \).  
 It reads processed data (e.g., `delG.dat`), applies fitting methods, integrates the force, and produces both **numerical output** and **plots**.

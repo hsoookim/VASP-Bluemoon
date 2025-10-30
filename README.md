@@ -1,5 +1,7 @@
 # VASP-Bluemoon
-Thermodynamic Integration – Blue Moon Method (VASP)
+Thermodynamic Integration – Blue Moon Method (VASP) 
+- Bluemoon ensemble : https://vasp.at/wiki/Blue_moon_ensemble
+- LBLUEOUT = .TRUE. : https://vasp.at/wiki/Blue_moon_ensemble_calculations
 This repository contains scripts and input examples for performing thermodynamic integration (TI) with the Blue Moon ensemble method using VASP. 
 The workflow targets to run contrained AIMD to obtain free-energy profiles G(ξ) along a reaction coordinate ξ.
 
@@ -16,7 +18,7 @@ The workflow targets to run contrained AIMD to obtain free-energy profiles G(ξ)
 
 ### b. ICONST
 Defines the **geometric constraint(s)** for the simulation.  
-- Documentation: [VASP ICONST manual](https://cms.mpi.univie.ac.at/vasp/vasp/ICONST.html)  
+- Documentation: https://vasp.at/wiki/ICONST  
 - Example:  
   Suppose you define one contraint, `X-coordinate of O atom`, and vary it systematically, for example by linear interpolation.  
   If you create 9 incremental variations of 'X-coordinate of O atom', this corresponds to **11 separate constrained MD (cMD) runs**, including the starting and ending configurations.

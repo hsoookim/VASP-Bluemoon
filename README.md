@@ -32,38 +32,50 @@ When running cAIMD in multiple stages (e.g., restarting jobs or splitting into s
 - Later, the extraction script (`G_dat.sh`) can be pointed to these files (`report_*`) and will process them together.  
 
 ## Post-processing
-### G_dat.sh
-This script processes `report_*` files computes the mean force ⟨∂G/∂ξ⟩, with error bars.
-- Run the “g_dat.sh” shell in directory where all folders are located to extract averaged values of reaction coordinate values and free-energy gradients.
-- In this script, you have to give how many steps will be ignored as equilibration step.
-- Concatenates all `report_*` files in each directory into a single file `rep.$i.1`.
-- Reads the constrained coordinate (`x1`) from the `report_1` file (based on the `ICONST` definition).
-- Averages the fifth column (scaled force term) over the production portion of the trajectory.  
-- Normalizes by the factor `zet` from column 3.
-- Computes the standard error of the mean (SEM).
-- Store the output in a file named as ‘delG.dat’. with four columns "image   r   delG   sem"
+### 1. Extract Mean Forces (`G_dat.sh`)
+This shell script processes VASP `report_*` files in each constraint window and outputs averaged free-energy gradients.
 
-### Integral
-- Run the “integrate_fit.py” on ‘delG.dat’ to do the path integral.
+**What it does**
+- Skips an initial equilibration period (user-defined).
+- Concatenates all `report_*` files into `rep.$i.1` per window.
+- Reads the constrained coordinate (`x1`) from `report_1`.
+- Computes the mean force ⟨∂G/∂ξ⟩:
+  - Averages column 5 (scaled force term).
+  - Normalizes by column 3 (`|z|^(-1/2)`).
+- Calculates the **standard error of the mean (SEM)**.
+- Saves results to `delG.dat` with four columns
+  - `image`: window index/label  
+  - `r`: reaction coordinate (Å, rad, etc.)  
+  - `delG`: mean force ⟨∂G/∂ξ⟩ (eV/Å)  
+  - `sem`: standard error of the mean (eV/Å)  
 
-This script performs **numerical integration of free-energy gradients** (⟨∂G/∂ξ⟩) to obtain the free-energy profile \( G(ξ) \).  
-It reads in processed data, such as `delG.dat`, fits the force data, integrates it, and produces both **numerical results** and **plots**.
+### 2. Integrate Free-Energy Profile (`integrate_poly.py`)
 
-- **Input parsing**: Reads "image   r(reaction coordinate)   delG(mean force)   sem(error)" from data file.
-- **Flexible fitting options**:
-  - **Polynomial fit** (user-defined degree).
-  - **Cubic spline fit** (smooth interpolation).
-  - **Raw integration** (direct trapezoid rule, no fitting).
+This Python script performs **numerical integration of mean force data** (⟨∂G/∂ξ⟩) to construct the free-energy profile \( G(ξ) \).  
+It reads processed data (e.g., `delG.dat`), applies fitting methods, integrates the force, and produces both **numerical output** and **plots**.
+
+**Features**
+- **Flexible fitting**:
+- Polynomial fit (degree chosen interactively).
+- Cubic spline fit (smooth interpolation).
+- Raw integration (direct trapezoid rule without fitting).
 - **Integration methods**:
-  - `quad` (adaptive quadrature from SciPy).
-  - `trapezoid` (trapezoidal rule).
-- **r vs g plot**:
-  - Plots mean force('r' vs.'delG') with SEM error bars.
+- `quad` (adaptive quadrature via SciPy).
+- `trapezoid` (trapezoidal rule).
+- **Plotting**:
+- **r vs. delG**: mean force with SEM error bars and fitted curve.
+- **r vs. G(ξ)**: integrated free-energy profile.
+  - Profile is shifted so that the minimum is at **0 eV**.
+  - Maximum barrier height is automatically annotated.
+- **Style**: uses `acs_plot_style.py` for publication-quality (ACS-style) plots.
 
-- **r vs Free-energy profile**:
-  - Integrates 'delG' to yield \( G(ξ) \).
-  - Automatically shifts the profile so the minimum energy is set to **zero reference**.
-  - Annotates the maximum barrier height on the plot.
-Uses a custom ACS-style plotting function (`acs_plot_style.py`) for journal-ready graphics.
-- **Usage** python integrate_poly.py <data_file>
+#### Usage
+```bash
+python integrate_poly.py delG.dat
+The script will interactively prompt for:
+Invert x-axis (yes/no)
+Fit type (poly, spline, or raw)
+Polynomial degree (if poly)
+Integration method (quad or trapezoid)
+Dense sampling option (yes/no)
 

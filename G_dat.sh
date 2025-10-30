@@ -31,7 +31,7 @@ do
       sem=$(echo "$std_dev $prod" | awk '{print $1/sqrt($2)}')
 
       echo "dir: $i, x1: $x1, g1: $g1, SEM: $sem"
-      echo "$i $x1 $g1 $sem" >> Optimal/delG.dat
+      echo "$i $x1 $g1 $sem" >> delG.dat
     else
       echo "Not enough production lines for rep.$i.1 in $report_file"
     fi

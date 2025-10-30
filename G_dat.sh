@@ -1,5 +1,12 @@
 #!/usr/bin/bash
 
+### Key Variables
+# `equil`: number of steps to discard as equilibration (default: 4000).  
+# `rep.$i.1`: concatenated file of all `report_*` entries in window `$i`.  
+# `x1`: constrained coordinate value from ICONST.  
+# `g1`: averaged free-energy gradient for window `$i`.  
+# `sem`: standard error of the mean for `g1`.  
+
 equil=4000 # front part
 
 for i in 00 01 02 03 04 05 06 07 08 09 10 

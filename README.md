@@ -57,7 +57,7 @@ This shell script processes VASP `report_*` files in each constraint window and 
 ### Step 2. Integrate Free-Energy Profile (`integrate_delG.py`)
 
 This Python script performs **numerical integration of mean force data** (⟨∂G/∂ξ⟩) to construct the free-energy profile \( G(ξ) \).  
-It reads processed data (e.g., `metadata.dat`), applies fitting methods, integrates the force, and produces both **numerical output** and **plots**.
+It reads processed data (e.g., `metadata.dat`), estimates errors by block averaging, integrates the mean force with the trapezoidal rule while propagating uncertainty. Saves **numerical output** and **plots**.
 
 **Features**
 - **Integration method**:

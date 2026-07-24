@@ -54,34 +54,23 @@ This shell script processes VASP `report_*` files in each constraint window and 
   - `delG`: mean force ⟨∂G/∂ξ⟩ (eV/Å)  
   - `sem`: standard error of the mean (eV/Å)  
 
-### Step 2. Integrate Free-Energy Profile (`integrate_poly.py`)
+### Step 2. Integrate Free-Energy Profile (`integrate_delG.py`)
 
 This Python script performs **numerical integration of mean force data** (⟨∂G/∂ξ⟩) to construct the free-energy profile \( G(ξ) \).  
-It reads processed data (e.g., `delG.dat`), applies fitting methods, integrates the force, and produces both **numerical output** and **plots**.
+It reads processed data (e.g., `metadata.dat`), applies fitting methods, integrates the force, and produces both **numerical output** and **plots**.
 
 **Features**
-- **Flexible fitting**:
-  - Polynomial fit (degree chosen interactively).
-  - Cubic spline fit (smooth interpolation).
-  - Raw integration (direct trapezoid rule without fitting).
-- **Integration methods**:
-  - `quad` (adaptive quadrature via SciPy).
+- **Integration method**:
   - `trapezoid` (trapezoidal rule).
 - **Plotting**:
   - **r vs. delG**: mean force with SEM error bars and fitted curve.
   - **r vs. G(ξ)**: integrated free-energy profile.
     - Profile is shifted so that the minimum is at **0 eV**.
     - Maximum barrier height is automatically annotated.
-- **Style**: uses `acs_plot_style.py` for publication-quality (ACS-style) plots.
 
 #### Usage
 ```bash
-python integrate_poly.py delG.dat
+python integrate_poly.py metadata.dat
 ```
-The script will interactively prompt for:
-Invert x-axis (yes/no)  
-Fit type (poly, spline, or raw)  
-Polynomial degree (if poly)  
-Integration method (quad or trapezoid)  
-Dense sampling option (yes/no)  
+
 

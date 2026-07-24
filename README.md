@@ -52,7 +52,6 @@ This shell script processes VASP `report_*` files in each constraint window and 
   - `image`: window index/label  
   - `r`: reaction coordinate (Å, rad, etc.)  
   - `delG`: mean force ⟨∂G/∂ξ⟩ (eV/Å)  
-  - `sem`: standard error of the mean (eV/Å)  
 
 ### Step 2. Integrate Free-Energy Profile (`integrate_delG.py`)
 
